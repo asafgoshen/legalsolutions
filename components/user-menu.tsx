@@ -18,9 +18,16 @@ interface UserMenuProps {
   email: string | null
   avatarUrl?: string | null
   role?: string | null
+  isDemo?: boolean
 }
 
-export function UserMenu({ fullName, email, avatarUrl, role }: UserMenuProps) {
+export function UserMenu({
+  fullName,
+  email,
+  avatarUrl,
+  role,
+  isDemo = false,
+}: UserMenuProps) {
   const display = fullName ?? email ?? "משתמש"
   const initials = (fullName ?? email ?? "U")
     .split(" ")
@@ -76,7 +83,7 @@ export function UserMenu({ fullName, email, avatarUrl, role }: UserMenuProps) {
               className="flex w-full cursor-pointer items-center gap-2 text-destructive"
             >
               <LogOut className="h-4 w-4" />
-              <span>התנתקות</span>
+              <span>{isDemo ? "יציאה ממצב הדגמה" : "התנתקות"}</span>
             </button>
           </form>
         </DropdownMenuItem>

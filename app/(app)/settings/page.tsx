@@ -8,8 +8,21 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import { GoogleConnectionStatus } from "@/components/google-connection-status"
+import { DEMO_PROFILE, isDemoMode } from "@/lib/demo"
 
 export default async function SettingsPage() {
+  if (await isDemoMode()) {
+    return (
+      <SettingsView
+        officeName={DEMO_PROFILE.officeName}
+        fullName={DEMO_PROFILE.fullName}
+        email={DEMO_PROFILE.email}
+        role={DEMO_PROFILE.role}
+        phone={DEMO_PROFILE.phone}
+      />
+    )
+  }
+
   const supabase = await createClient()
   const {
     data: { user },
@@ -29,6 +42,31 @@ export default async function SettingsPage() {
         .eq("id", profile.workspace_id)
         .maybeSingle()
     : { data: null }
+
+  return (
+    <SettingsView
+      officeName={workspace?.office_name ?? null}
+      fullName={profile?.full_name ?? null}
+      email={user.email ?? null}
+      role={profile?.role ?? null}
+      phone={profile?.phone_number ?? null}
+    />
+  )
+}
+
+function SettingsView({
+  officeName,
+  fullName,
+  email,
+  role,
+  phone,
+}: {
+  officeName: string | null
+  fullName: string | null
+  email: string | null
+  role: string | null
+  phone: string | null
+}) {
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-6">
