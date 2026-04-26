@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { callGoogle, getGoogleAccessToken } from "@/lib/google"
+import { getMockDriveFiles, isDemoMode } from "@/lib/demo"
 
 type DriveFile = {
   id: string
@@ -15,6 +16,12 @@ type DriveListResponse = {
 }
 
 export async function GET(request: NextRequest) {
+  const limitParam = Number(request.nextUrl.searchParams.get("limit") ?? "10")
+
+  if (await isDemoMode()) {
+    return NextResponse.json({ files: getMockDriveFiles(limitParam) })
+  }
+
   const { token, userId } = await getGoogleAccessToken()
   if (!userId) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 })
@@ -26,9 +33,8 @@ export async function GET(request: NextRequest) {
     )
   }
 
-  const limit = Number(request.nextUrl.searchParams.get("limit") ?? "10")
   const fields = "files(id,name,mimeType,modifiedTime,webViewLink,iconLink)"
-  const url = `https://www.googleapis.com/drive/v3/files?pageSize=${limit}&orderBy=modifiedTime desc&fields=${encodeURIComponent(
+  const url = `https://www.googleapis.com/drive/v3/files?pageSize=${limitParam}&orderBy=modifiedTime desc&fields=${encodeURIComponent(
     fields,
   )}`
 

@@ -59,7 +59,7 @@ export function getMockDriveFiles(limit = 10): MockDriveFile[] {
     },
     {
       id: "demo-5",
-      name: "פסק דין רלוונטי — ע&quot;א 7634-22.pdf",
+      name: 'פסק דין רלוונטי — ע"א 7634-22.pdf',
       mimeType: "application/pdf",
       webViewLink: "#",
     },
@@ -124,7 +124,7 @@ export function getMockCalendarEvents(limit = 6): MockCalendarEvent[] {
       location: "משרד — חדר ישיבות א'",
     },
     {
-      summary: "דיון בבית משפט השלום ת&quot;א",
+      summary: 'דיון בבית משפט השלום ת"א',
       offsetHours: 26,
       durationHours: 2,
       location: "בית משפט השלום, תל אביב",
@@ -135,7 +135,7 @@ export function getMockCalendarEvents(limit = 6): MockCalendarEvent[] {
       durationHours: 1,
     },
     {
-      summary: "שיחת זום עם עו&quot;ד מהצד שכנגד",
+      summary: 'שיחת זום עם עו"ד מהצד שכנגד',
       offsetHours: 74,
       durationHours: 0.5,
       location: "Zoom",

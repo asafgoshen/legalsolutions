@@ -84,11 +84,11 @@ function SettingsView({
         </CardHeader>
         <CardContent>
           <dl className="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6">
-            <Field label="שם המשרד" value={workspace?.office_name} />
-            <Field label="שם מלא" value={profile?.full_name} />
-            <Field label="כתובת אימייל" value={user.email ?? null} />
-            <Field label="תפקיד" value={profile?.role} />
-            <Field label="טלפון" value={profile?.phone_number} dir="ltr" />
+            <Field label="שם המשרד" value={officeName} />
+            <Field label="שם מלא" value={fullName} />
+            <Field label="כתובת אימייל" value={email} />
+            <Field label="תפקיד" value={role} />
+            <Field label="טלפון" value={phone} dir="ltr" />
           </dl>
         </CardContent>
       </Card>

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { callGoogle, getGoogleAccessToken } from "@/lib/google"
+import { getMockCalendarEvents, isDemoMode } from "@/lib/demo"
 
 type CalendarEvent = {
   id: string
@@ -15,6 +16,12 @@ type CalendarListResponse = {
 }
 
 export async function GET(request: NextRequest) {
+  const limitParam = Number(request.nextUrl.searchParams.get("limit") ?? "10")
+
+  if (await isDemoMode()) {
+    return NextResponse.json({ items: getMockCalendarEvents(limitParam) })
+  }
+
   const { token, userId } = await getGoogleAccessToken()
   if (!userId) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 })
@@ -26,10 +33,9 @@ export async function GET(request: NextRequest) {
     )
   }
 
-  const limit = Number(request.nextUrl.searchParams.get("limit") ?? "10")
   const timeMin = new Date().toISOString()
   const params = new URLSearchParams({
-    maxResults: String(limit),
+    maxResults: String(limitParam),
     orderBy: "startTime",
     singleEvents: "true",
     timeMin,
