@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Deep navy primary - authority, trust */
+    --primary: 218 54% 12%;
+    --primary-foreground: 40 30% 96%;
+
+    /* Warm champagne gold accent - luxury, premium */
+    --accent: 38 45% 55%;
+    --accent-foreground: 218 54% 12%;
+
+    /* Cream/off-white background */
+    --background: 40 30% 97%;
+    --foreground: 218 54% 12%;
+
+    /* Card backgrounds */
+    --card: 0 0% 100%;
+    --card-foreground: 218 54% 12%;
+
+    /* Muted neutrals */
+    --muted: 220 15% 94%;
+    --muted-foreground: 218 15% 40%;
+
+    /* Borders */
+    --border: 220 15% 88%;
+
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-feature-settings: "kern" 1, "liga" 1;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Subtle grid pattern for hero */
+  .bg-grid {
+    background-image: linear-gradient(hsl(var(--border) / 0.6) 1px, transparent 1px),
+      linear-gradient(to right, hsl(var(--border) / 0.6) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Soft radial glow */
+  .bg-radial-glow {
+    background: radial-gradient(circle at 50% 0%, hsl(var(--accent) / 0.12), transparent 60%);
+  }
+
+  /* Shimmer animation for the gold accent line */
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+  .animate-shimmer {
+    animation: shimmer 3s ease-in-out infinite;
+  }
+
+  /* Gentle fade-up */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up {
+    animation: fadeUp 0.8s ease-out forwards;
+  }
+}
