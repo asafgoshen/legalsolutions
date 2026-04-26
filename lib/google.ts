@@ -49,3 +49,26 @@ export async function callGoogle<T>(
   }
   return (await res.json()) as T
 }
+
+/** POST/PATCH/PUT/DELETE helper that sends a JSON body. */
+export async function callGoogleJson<T>(
+  url: string,
+  token: string,
+  init: { method: "POST" | "PATCH" | "PUT" | "DELETE"; body?: unknown },
+): Promise<T | GoogleApiError> {
+  const res = await fetch(url, {
+    method: init.method,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: init.body !== undefined ? JSON.stringify(init.body) : undefined,
+    cache: "no-store",
+  })
+  if (!res.ok) {
+    const text = await res.text()
+    return { error: text || res.statusText, code: res.status }
+  }
+  if (res.status === 204) return {} as T
+  return (await res.json()) as T
+}

@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card"
 import { CalendarEvents } from "@/components/calendar-events"
 import { DriveFiles } from "@/components/drive-files"
+import { QuickActions } from "@/components/quick-actions"
 
 export default function DashboardPage() {
   return (
@@ -57,6 +58,8 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </section>
+
+      <QuickActions />
 
       <section
         aria-labelledby="workspace"

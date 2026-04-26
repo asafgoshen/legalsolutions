@@ -4,11 +4,17 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { createClient } from "@/lib/supabase/client"
 
+// Drive: drive.readonly grants full read across the user's Drive (needed so
+// AI features can summarize existing client files). drive.file grants create
+// + edit access to files the app itself creates (non-sensitive scope, no
+// Google verification required). Calendar: calendar.events grants read +
+// create + update + delete on events.
 const GOOGLE_SCOPES = [
   "https://www.googleapis.com/auth/userinfo.email",
   "https://www.googleapis.com/auth/userinfo.profile",
-  "https://www.googleapis.com/auth/drive.metadata.readonly",
-  "https://www.googleapis.com/auth/calendar.readonly",
+  "https://www.googleapis.com/auth/drive.readonly",
+  "https://www.googleapis.com/auth/drive.file",
+  "https://www.googleapis.com/auth/calendar.events",
 ].join(" ")
 
 export function GoogleLoginButton() {
